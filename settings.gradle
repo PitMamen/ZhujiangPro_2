@@ -1,1 +1,1 @@
-include ':treeview_pro'
+include ':treeview_pro', ':bitmapCompress'

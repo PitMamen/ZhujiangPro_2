@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ZhujiangPro_2.iml" filepath="$PROJECT_DIR$/ZhujiangPro_2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/treeview_pro/app.iml" filepath="$PROJECT_DIR$/treeview_pro/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bitmapCompress/bitmapCompress.iml" filepath="$PROJECT_DIR$/bitmapCompress/bitmapCompress.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bitmapCompress/testmoudle.iml" filepath="$PROJECT_DIR$/bitmapCompress/testmoudle.iml" />
       <module fileurl="file://$PROJECT_DIR$/treeview_pro/treeview_pro.iml" filepath="$PROJECT_DIR$/treeview_pro/treeview_pro.iml" />
     </modules>
   </component>
