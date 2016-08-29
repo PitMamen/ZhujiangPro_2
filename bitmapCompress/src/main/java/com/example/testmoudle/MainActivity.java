@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 
 /**
@@ -13,6 +14,8 @@ import android.widget.ImageView;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    // 图片缓存
+    private ImageCache mMemoryCache;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
         ImageView iv1 = (ImageView) findViewById(R.id.image1);
         ImageView iv2 = (ImageView) findViewById(R.id.image2);
 
-        Bitmap bm1 = BitmapUtils.decodeBitmapSampleBitmapFromResource(getResources()
-                , R.drawable.beautiful, 100, 100);
+//        Bitmap bm1 = BitmapUtils.decodeBitmapSampleBitmapFromResource(getResources()
+//                , R.drawable.beautiful, 100, 100);
 //        Bitmap bm2 = BitmapUtils.decodeBitmapSampleBitmapFromResource(getResources()
 //                , R.drawable.sence, 100, 100);
 //
@@ -40,22 +43,50 @@ public class MainActivity extends AppCompatActivity {
 
 //        bm1 = mergeImage(bm1);
 //        iv1.setImageBitmap(bm1);
-        loadBitmap(R.drawable.beautiful, iv1);
-        loadBitmap(R.drawable.sence, iv2);
+//        loadBitmap(R.drawable.beautiful, iv1);
+//        loadBitmap(R.drawable.sence, iv2);
 
+        mMemoryCache = new ImageCache(BitmapUtils.getCacheSize());
+        loadBitmapAndMemoryCache(R.drawable.sence, iv1);
     }
 
-
+    /**
+     * 保证每张图都只有一个线程在处理
+     *
+     * @param resId
+     * @param imageView
+     */
     public void loadBitmap(int resId, ImageView imageView) {
         if (BitmapUtils.cancelPotentialWork(resId, imageView)) {
             final BitmapUtils.BitmapWorkTask mTask =
-                    new BitmapUtils.BitmapWorkTask(imageView, this,100,100);
+                    new BitmapUtils.BitmapWorkTask(imageView, this, 100, 100);
             Bitmap bm1 = BitmapUtils.decodeBitmapSampleBitmapFromResource(getResources()
                     , R.drawable.beautiful, 100, 100);
             final BitmapUtils.AsyncBitmapDrawable asyncBitmapDrawable =
                     new BitmapUtils.AsyncBitmapDrawable(getResources(), bm1, mTask);
             imageView.setImageDrawable(asyncBitmapDrawable);
             mTask.execute(resId);
+        }
+    }
+
+    /**
+     * 加载图片并缓存
+     *
+     * @param resId
+     * @param imageView
+     */
+    public void loadBitmapAndMemoryCache(int resId, ImageView imageView) {
+        Log.d(TAG, "resId===" + resId);
+        Log.d(TAG, "R.drawable.img2===" + R.drawable.img2);
+
+        String imageKey = String.valueOf(resId);
+        Bitmap bitmap = mMemoryCache.getBitmapFromKey(imageKey);
+        if (bitmap != null) {
+            imageView.setImageBitmap(bitmap);
+        } else {
+            imageView.setImageResource(R.drawable.img2);
+            new BitmapUtils.BitmapWorkTask(mMemoryCache, imageView, this, 100, 100)
+                    .execute(resId);
         }
     }
 
