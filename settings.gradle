@@ -1,1 +1,1 @@
-include ':treeview_pro', ':bitmapCompress'
+include ':treeview_pro', ':bitmapCompress', ':contactsort'

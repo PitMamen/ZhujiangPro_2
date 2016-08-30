@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ZhujiangPro_2.iml" filepath="$PROJECT_DIR$/ZhujiangPro_2.iml" />
       <module fileurl="file://$PROJECT_DIR$/bitmapCompress/bitmapCompress.iml" filepath="$PROJECT_DIR$/bitmapCompress/bitmapCompress.iml" />
+      <module fileurl="file://$PROJECT_DIR$/contactsort/contactsort.iml" filepath="$PROJECT_DIR$/contactsort/contactsort.iml" />
       <module fileurl="file://$PROJECT_DIR$/treeview_pro/treeview_pro.iml" filepath="$PROJECT_DIR$/treeview_pro/treeview_pro.iml" />
     </modules>
   </component>
